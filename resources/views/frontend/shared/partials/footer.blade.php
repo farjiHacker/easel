@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <hr>
-                <p class="small">Proudly powered by <a href="https://cnvs.io" target="_blank">Canvas</a> &#183; <a href="{!! route('canvas.admin') !!}"><i class="fa fa-lock"></i> Sign In</a>
+                <p class="small">{!! trans('canvas::frontend.powered_by', ['canvas_url' => '<a href="https://cnvs.io" target="_blank">Canvas</a>']) !!} &#183; <a href="{!! route('canvas.admin') !!}"><i class="fa fa-lock"></i> {{ trans('canvas::frontend.sign_in') }}</a>
                 </p>
             </div>
         </div>
@@ -18,7 +18,7 @@
 
 <!-- scroll to top button -->
 <span id="top-link-block" class="hidden hover-button">
-    <a id="scroll-to-top" href="#top">SCROLL TO TOP</a>
+    <a id="scroll-to-top" href="#top">{{ trans('canvas::frontend.scroll_to_top') }}</a>
 </span>
 
 @if (!empty(\Canvas\Models\Settings::gaId()))

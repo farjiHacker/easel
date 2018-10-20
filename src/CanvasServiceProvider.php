@@ -3,6 +3,7 @@
 namespace Canvas;
 
 use Schema;
+use Carbon\Carbon;
 use Canvas\Models\Settings;
 use Canvas\Helpers\RouteHelper;
 use Canvas\Helpers\SetupHelper;
@@ -29,6 +30,7 @@ use Canvas\Http\Middleware\EnsureNotInstalled;
 use Canvas\Console\Commands\Publish\Migrations;
 use Canvas\Extensions\ExtensionsServiceProvider;
 use TeamTNT\Scout\TNTSearchScoutServiceProvider;
+use Canvas\Console\Commands\Publish\Translations;
 use Canvas\Http\Middleware\CheckForMaintenanceMode;
 use Larapack\ConfigWriter\Repository as ConfigWriter;
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
@@ -58,6 +60,7 @@ class CanvasServiceProvider extends ServiceProvider
         Install::class,
         Version::class,
         Uninstall::class,
+        Translations::class,
     ];
 
     /**
@@ -90,8 +93,16 @@ class CanvasServiceProvider extends ServiceProvider
      */
     private function handleTranslations()
     {
+        // Set locale for Carbon
+        Carbon::setLocale(config('app.locale'));
+
         // Load translations...
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'canvas');
+
+        // Allow publishing translation files, with tag: translations
+        $this->publishes([
+            __DIR__.'/../resources/lang' => base_path('resources/lang/vendor/canvas'),
+        ], 'translations');
     }
 
     /**
@@ -203,13 +214,13 @@ class CanvasServiceProvider extends ServiceProvider
         $this->app->register(ExtensionsServiceProvider::class);
 
         // Register facades...
-        $loader->alias('ConfigWriter', ConfigWriter::class);
         $loader->alias('Excel', Excel::class);
         $loader->alias('Settings', Settings::class);
+        $loader->alias('CanvasSetup', SetupHelper::class);
+        $loader->alias('CanvasRoute', RouteHelper::class);
         $loader->alias('CanvasHelper', CanvasHelper::class);
         $loader->alias('CanvasConfig', ConfigHelper::class);
-        $loader->alias('CanvasRoute', RouteHelper::class);
-        $loader->alias('CanvasSetup', SetupHelper::class);
+        $loader->alias('ConfigWriter', ConfigWriter::class);
 
         // Register middleware...
         $router->aliasMiddleware('checkIfAdmin', CheckIfAdmin::class);

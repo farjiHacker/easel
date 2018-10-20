@@ -8,14 +8,14 @@
                         <li class="previous">
                             <a href="{!! $post->olderPost($tag)->url($tag) !!}">
                                 <i class="fa fa-angle-left fa-lg"></i>
-                                Previous {{ $tag->tag }}
+                                {{ trans('canvas::frontend.previous') }} {{ $tag->tag }}
                             </a>
                         </li>
                     @endif
                     @if ($post->newerPost($tag))
                         <li class="next">
                             <a href="{!! $post->newerPost($tag)->url($tag) !!}">
-                                Next {{ $tag->tag }}
+                                {{ trans('canvas::frontend.next') }} {{ $tag->tag }}
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
@@ -25,14 +25,14 @@
                         <li class="previous">
                             <a href="{!! $post->newerPost($tag)->url($tag) !!}">
                                 <i class="fa fa-angle-left fa-lg"></i>
-                                Newer
+                                {{ trans('canvas::frontend.newer') }}
                             </a>
                         </li>
                     @endif
                     @if ($post->olderPost($tag))
                         <li class="next">
                             <a href="{!! $post->olderPost($tag)->url($tag) !!}">
-                                Older
+                                {{ trans('canvas::frontend.older') }}
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>

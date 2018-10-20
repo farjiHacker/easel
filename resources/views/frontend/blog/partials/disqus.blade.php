@@ -17,12 +17,11 @@
             </script>
 
             <noscript>
-                Please enable JavaScript to view the
-                <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+                {!! trans('canvas::frontend.comments_noscript', ['disqus_url' => '<a href="http://disqus.com/?ref_noscript">Disqus</a>']) !!}
             </noscript>
 
             <a href="http://disqus.com" class="dsq-brlink">
-                comments powered by <span class="logo-disqus">Disqus</span>
+                {!! trans('canvas::frontend.comments_powered_by', ['disqus_logo' => '<span class="logo-disqus">Disqus</span>']) !!}
             </a>
 
         @endif

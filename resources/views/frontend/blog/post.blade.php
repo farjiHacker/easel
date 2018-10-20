@@ -22,7 +22,7 @@
                     @endif
                     <h1 class="post-page-title">{{ $post->title }}</h1>
                     <p class="post-page-meta">
-                        {{ \Carbon\Carbon::parse($post->published_at)->diffForHumans() }} &#183; {{ $post->readingTime() }} MIN READ
+                        {{ \Carbon\Carbon::parse($post->published_at)->diffForHumans() }} &#183; {{ trans('canvas::frontend.reading_time', ['minutes' => $post->readingTime()]) }}
                         @if ($post->tags->count())
                             <br>
                             {!! join(' ', $post->tagLinks()) !!}
